@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV | Rolando Vilca Vilca</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            display: grid;
+            place-items: center;
+            background: #D9E6F2;
+        }
+
+        .cv-image {
+            display: block;
+            width: 100%;
+            height: 100vh;
+            object-fit: contain;
+        }
+
+        .save-pdf {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            padding: 12px 18px;
+            border: 0;
+            border-radius: 8px;
+            background: #F5A623;
+            color: #0B3C5D;
+            font: 700 14px Arial, sans-serif;
+            cursor: pointer;
+            box-shadow: 0 4px 14px #0B3C5D33;
+        }
+
+        @page {
+            size: A4 portrait;
+            margin: 0;
+        }
+
+        @media print {
+            body {
+                min-height: 0;
+                background: white;
+            }
+
+            .cv-image {
+                width: 100%;
+                height: 100vh;
+            }
+
+            .save-pdf {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <img class="cv-image" id="cv-image" src="imagenes/cv.jpg" alt="Currículum Vitae de Rolando Vilca Vilca">
+    <button class="save-pdf" id="save-pdf" type="button">Guardar como PDF</button>
+
+    <script>
+        const cvImage = document.getElementById("cv-image");
+        const savePdfButton = document.getElementById("save-pdf");
+        const openPrintDialog = () => window.print();
+
+        savePdfButton.addEventListener("click", openPrintDialog);
+
+        if (cvImage.complete && cvImage.naturalWidth > 0) {
+            window.setTimeout(openPrintDialog, 300);
+        } else {
+            cvImage.addEventListener("load", () => {
+                window.setTimeout(openPrintDialog, 300);
+            }, { once: true });
+        }
+    </script>
+</body>
+</html>
